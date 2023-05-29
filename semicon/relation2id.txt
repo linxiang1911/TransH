@@ -1,0 +1,4 @@
+fail	0
+need_check	1
+have	2
+pass	3

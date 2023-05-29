@@ -1,0 +1,42 @@
+# 定义文件路径
+train_file = "train.txt"
+test_file = "test.txt"
+entity_file = "entity2id.txt"
+relation_file = "relation2id.txt"
+
+# 读取训练集和测试集
+triplets = set()
+with open(train_file, 'r') as f:
+    for line in f:
+        triplet = line.strip().split('\t')
+        triplets.add(tuple(triplet))
+        
+with open(test_file, 'r') as f:
+    for line in f:
+        triplet = line.strip().split('\t')
+        triplets.add(tuple(triplet))
+
+# 构建实体和关系集合
+entities = set()
+relations = set()
+for triplet in triplets:
+    entities.add(triplet[0])
+    entities.add(triplet[2])
+    relations.add(triplet[1])
+
+# 为实体和关系编码
+entity2id = {}
+relation2id = {}
+for i, entity in enumerate(entities):
+    entity2id[entity] = i
+for i, relation in enumerate(relations):
+    relation2id[relation] = i
+
+# 将实体和关系编码写入文件
+with open(entity_file, 'w') as f:
+    for entity, eid in entity2id.items():
+        f.write(entity + '\t' + str(eid) + '\n')
+
+with open(relation_file, 'w') as f:
+    for relation, rid in relation2id.items():
+        f.write(relation + '\t' + str(rid) + '\n')

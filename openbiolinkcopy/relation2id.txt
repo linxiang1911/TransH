@@ -1,0 +1,3 @@
+treats	1
+inhibits	2
+activates	3
